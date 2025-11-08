@@ -1,4 +1,4 @@
-# 🧬 Shinka Quality
+# 🧬 Shinka QA
 
 <div align="center">
 
@@ -14,11 +14,11 @@
 
 ---
 
-## 🎯 Shinka Qualityとは？
+## 🎯 Shinka QAとは？
 
-Shinka Qualityは、**プログラミングコンテストで優勝レベルのコードを自動生成した進化的アルゴリズム**を応用し、ソフトウェアテストコードを自動生成・品質保証するフレームワークです。
+Shinka QAは、**プログラミングコンテストで優勝レベルのコードを自動生成した進化的アルゴリズム**を応用し、ソフトウェアテストコードを自動生成・品質保証するフレームワークです。
 
-### 🌟 なぜShinka Qualityが必要なのか？
+### 🌟 なぜShinka QAが必要なのか？
 
 **AI時代の品質保証の課題**
 
@@ -28,7 +28,7 @@ Vibe CodingやAI Assistedコーディングにより、**大量のソースコ�
 - ⚠️ **品質保証の手法が確立されていない** → エンタープライズ企業も模索中
 - 🔄 **従来のテスト手法では限界** → 手動テストでは対応不可能
 
-**Shinka Qualityの答え**
+**Shinka QAの答え**
 
 開発AIエージェントとは**起源の異なるアプローチ**で解決：
 
@@ -59,7 +59,7 @@ def test_divide():
 - バグ検出: 20%
 - フィットネス: 0.39
 
-**After: Shinka Quality適用後**
+**After: Shinka QA適用後**
 ```python
 @pytest.mark.parametrize("a,b,expected", [
     (2, 3, 5),
@@ -152,7 +152,7 @@ shinka-qa visualize --results-dir results/run_* --generate-report
 
 **従来の遺伝的プログラミングの課題**: ランダム変異では収束が遅く、実用的な世代数で高品質なテストを生成できない。
 
-**Shinka Qualityの解決策**:
+**Shinka QAの解決策**:
 ```
 🎯 数多くのテストパターンテンプレートを変異演算子として活用
 → 少ない世代（10世代程度）で高適応度を実現
@@ -189,7 +189,7 @@ shinka-qa visualize --results-dir results/run_* --generate-report
 - ❌ **LLMのみ**: コストが高く、基本的なテストにも課金される
 - ❌ **テンプレートのみ**: 創造性に欠け、複雑なケースをカバーできない
 
-Shinka Qualityの解決:
+Shinka QAの解決:
 - ✅ **コスト最小化**: 80%の労力を無料で処理、20%の難題のみLLM使用
 - ✅ **品質最大化**: テンプレートの網羅性 + LLMの創造性
 - ✅ **自動切り替え**: カバレッジサチュレーション検出で最適タイミングで移行
@@ -197,7 +197,7 @@ Shinka Qualityの解決:
 
 **実測コスト比較**（1000回実行時）:
 - フルLLM方式: $50〜$100
-- Shinka Quality: **$0.75〜$1.50** (85%削減)
+- Shinka QA: **$0.75〜$1.50** (85%削減)
 
 ### 3. プログラミングコンテスト実績の応用
 
@@ -413,11 +413,11 @@ def test_divide_simple():
     assert divide(10, 2) == 5.0
 ```
 
-#### Shinka Quality実行
+#### Shinka QA実行
 
 ```bash
 $ shinka-qa evolve --config quality_config_local.yaml
-Shinka Quality v1.0
+Shinka QA v1.0
 ========================================
 
 Configuration:
@@ -440,7 +440,7 @@ Results saved to: results/run_20251107_175036/
 #### 生成されたレポート
 
 ```
-Shinka Quality - Evolution Summary
+Shinka QA - Evolution Summary
 ==================================================
 
 Baseline Coverage: 42.0%
@@ -522,7 +522,7 @@ open results/run_YYYYMMDD_HHMMSS/evolution_report.html
 
 ```
 ┌─────────────────────────────────────────────┐
-│           Shinka Quality CLI                │
+│           Shinka QA CLI                     │
 └─────────────────┬───────────────────────────┘
                   │
     ┌─────────────┼─────────────┐
