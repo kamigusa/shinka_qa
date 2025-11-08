@@ -1,0 +1,36 @@
+# Pre-commit hooks configuration for Shinka Quality
+# Install: pip install pre-commit && pre-commit install
+
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.5.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-json
+      - id: check-added-large-files
+      - id: check-merge-conflict
+
+  - repo: https://github.com/psf/black
+    rev: 23.12.1
+    hooks:
+      - id: black
+        language_version: python3.11
+
+  - repo: https://github.com/PyCQA/flake8
+    rev: 7.0.0
+    hooks:
+      - id: flake8
+        args: ['--max-line-length=100', '--ignore=E203,W503']
+
+  # Shinka Quality hook - run on test files
+  - repo: local
+    hooks:
+      - id: shinka-qa-check
+        name: Shinka Quality Check
+        entry: shinka-qa
+        args: ['validate']
+        language: system
+        files: '^tests/.*\.py$'
+        pass_filenames: true

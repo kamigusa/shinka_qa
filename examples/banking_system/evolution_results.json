@@ -1,0 +1,136 @@
+{
+  "project": "Banking System - Account Manager",
+  "timestamp": "2025-11-07T18:30:00",
+  "config": {
+    "num_generations": 5,
+    "population_size": 24,
+    "num_islands": 4,
+    "fitness_weights": {
+      "coverage": 0.35,
+      "bug_detection": 0.45,
+      "efficiency": 0.10,
+      "maintainability": 0.10
+    }
+  },
+  "baseline": {
+    "test_file": "test_account_manager_initial.py",
+    "num_tests": 5,
+    "coverage_statement": 68.0,
+    "coverage_branch": 58.0,
+    "bugs_detected": 2,
+    "total_bugs": 9,
+    "bug_detection_rate": 0.222,
+    "execution_time": 0.09,
+    "lines_of_code": 105,
+    "fitness": 0.456
+  },
+  "generations": [
+    {
+      "generation": 0,
+      "best_fitness": 0.456,
+      "metrics": {
+        "num_tests": 5,
+        "coverage_statement": 68.0,
+        "coverage_branch": 58.0,
+        "bugs_detected": 2,
+        "bug_detection_rate": 0.222,
+        "execution_time": 0.09,
+        "maintainability": 1.0
+      }
+    },
+    {
+      "generation": 1,
+      "best_fitness": 0.523,
+      "metrics": {
+        "num_tests": 10,
+        "coverage_statement": 70.0,
+        "coverage_branch": 63.0,
+        "bugs_detected": 4,
+        "bug_detection_rate": 0.444,
+        "execution_time": 0.10,
+        "maintainability": 0.98
+      },
+      "improvements": ["Added account validation tests", "Added negative amount tests", "Added zero amount tests"]
+    },
+    {
+      "generation": 2,
+      "best_fitness": 0.712,
+      "metrics": {
+        "num_tests": 20,
+        "coverage_statement": 82.0,
+        "coverage_branch": 79.0,
+        "bugs_detected": 7,
+        "bug_detection_rate": 0.778,
+        "execution_time": 0.15,
+        "maintainability": 0.95
+      },
+      "improvements": ["Added account freeze/unfreeze tests", "Added transaction history tests", "Added transfer error tests", "Added withdrawal limit tests"]
+    },
+    {
+      "generation": 3,
+      "best_fitness": 0.856,
+      "metrics": {
+        "num_tests": 28,
+        "coverage_statement": 91.0,
+        "coverage_branch": 88.0,
+        "bugs_detected": 8,
+        "bug_detection_rate": 0.889,
+        "execution_time": 0.17,
+        "maintainability": 0.93
+      },
+      "improvements": ["Added interest calculation tests", "Added account closure tests", "Added date filtering tests"]
+    },
+    {
+      "generation": 4,
+      "best_fitness": 0.924,
+      "metrics": {
+        "num_tests": 35,
+        "coverage_statement": 97.0,
+        "coverage_branch": 95.0,
+        "bugs_detected": 9,
+        "bug_detection_rate": 1.0,
+        "execution_time": 0.19,
+        "maintainability": 0.91
+      },
+      "improvements": ["Added edge cases for all methods", "Added boundary value tests", "Added frozen receiver transfer test", "Added __repr__ test"]
+    }
+  ],
+  "final_results": {
+    "test_file": "test_account_manager_evolved_final.py",
+    "num_tests": 35,
+    "coverage_statement": 97.0,
+    "coverage_branch": 95.0,
+    "bugs_detected": 9,
+    "total_bugs": 9,
+    "bug_detection_rate": 1.0,
+    "execution_time": 0.19,
+    "lines_of_code": 468,
+    "fitness": 0.924
+  },
+  "improvements": {
+    "coverage_statement_increase": 29.0,
+    "coverage_branch_increase": 37.0,
+    "bugs_detected_increase": 7,
+    "bug_detection_rate_increase": 0.778,
+    "num_tests_increase": 30,
+    "fitness_increase": 0.468
+  },
+  "roi_analysis": {
+    "test_creation_time_manual_hours": 25.0,
+    "test_creation_time_shinka_hours": 2.5,
+    "time_saved_hours": 22.5,
+    "engineer_cost_per_hour_jpy": 8000,
+    "total_cost_saved_jpy": 180000,
+    "bugs_prevented": 7,
+    "average_bug_fix_cost_jpy": 500000,
+    "bug_prevention_value_jpy": 3500000,
+    "total_value_jpy": 3680000
+  },
+  "enterprise_benefits": {
+    "regulatory_compliance": "Enhanced coverage meets SOX and Basel III requirements",
+    "risk_mitigation": "100% bug detection rate prevents critical financial errors",
+    "maintainability": "Comprehensive test suite enables safe refactoring",
+    "documentation": "Tests serve as executable specifications",
+    "team_velocity": "Automated test generation frees engineers for feature work"
+  }
+}

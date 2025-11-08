@@ -1,0 +1,156 @@
+# Shinka Evolve チュートリアル
+
+**バージョン**: 1.0
+**最終更新**: 2025-11-07
+**所要時間**: 3時間（全5パート）
+
+---
+
+## 🎯 チュートリアルの目的
+
+このチュートリアルは、**Shinka Evolve**を使って進化計算アルゴリズムをマスターし、最適化問題を解く方法を学ぶためのものです。
+
+### 学習目標
+
+- ✅ 進化計算の基本原理を理解できる
+- ✅ 島モデルによる並列進化を実装できる
+- ✅ カスタム適応度関数を作成できる
+- ✅ 実際の最適化問題に適用できる
+- ✅ ハイパーパラメータをチューニングできる
+
+---
+
+## 📚 チュートリアル構成
+
+| Part | タイトル | 時間 | 内容 |
+|------|----------|------|------|
+| **[Part 0](part00_introduction/)** | イントロダクション | 15分 | 進化計算とは、Shinka Evolveの概要 |
+| **[Part 1](part01_basic_evolution/)** | 基本的な進化 | 25分 | 遺伝的アルゴリズムの実装 |
+| **[Part 2](part02_island_model/)** | 島モデル | 30分 | 並列進化と島間移住 |
+| **[Part 3](part03_custom_fitness/)** | カスタム適応度 | 35分 | 独自の適応度関数作成 |
+| **[Part 4](part04_real_problems/)** | 実問題への適用 | 40分 | ハイパーパラメータ最適化など |
+
+---
+
+## 🚀 クイックスタート
+
+### 1. インストール
+
+```bash
+# リポジトリをクローン
+git clone https://github.com/yourusername/shinka-evolve.git
+cd shinka-evolve
+
+# インストール
+pip install -e .
+
+# 確認
+python -c "import shinka_evolve; print(shinka_evolve.__version__)"
+```
+
+### 2. 最初のチュートリアルを開始
+
+```bash
+cd tutorials_evolve/part00_introduction/
+cat guide.md
+```
+
+---
+
+## 📖 学習パス
+
+### 初心者向け（1.5時間）
+
+```
+Part 0 → Part 1 → Part 2
+(15分)  (25分)  (30分)
+```
+
+**到達目標**:
+- 進化計算の基本を理解
+- 遺伝的アルゴリズムを実装できる
+- 島モデルを使える
+
+---
+
+### 中級者向け（3時間）
+
+```
+Part 0 → Part 1 → Part 2 → Part 3 → Part 4
+```
+
+**到達目標**:
+- カスタム適応度関数を作成できる
+- 実際の最適化問題に適用できる
+- ハイパーパラメータをチューニングできる
+
+---
+
+## 🎓 前提知識
+
+### 必須
+- Python 3.11以上
+- 基本的なプログラミング知識
+- NumPyの基礎
+
+### 推奨
+- 最適化問題の基礎知識
+- 機械学習の経験（Part 4）
+
+---
+
+## 💡 Shinka Evolve とは
+
+**Shinka Evolve**は、進化計算アルゴリズムのための強力なPythonフレームワークです。
+
+### 主な特徴
+
+1. **島モデル**: 並列進化による高速化
+2. **柔軟性**: カスタム適応度関数、変異、交叉
+3. **スケーラビリティ**: 小規模から大規模問題まで対応
+4. **使いやすさ**: シンプルなAPI
+
+### 適用例
+
+- ハイパーパラメータ最適化
+- ニューラルネットワーク構造探索
+- スケジューリング問題
+- 組み合わせ最適化
+- ゲームAI
+
+---
+
+## 🔧 環境要件
+
+**必須**:
+- Python 3.11以上
+- NumPy 1.24以上
+- pip 23以上
+
+**推奨**:
+- マルチコアCPU（並列化のため）
+- 4GB以上のメモリ
+
+---
+
+## 📚 追加リソース
+
+### ドキュメント
+- [公式ドキュメント](https://docs.shinka-evolve.com)
+- [API リファレンス](https://docs.shinka-evolve.com/api)
+- [サンプルコード](https://github.com/yourusername/shinka-evolve/examples)
+
+### コミュニティ
+- [GitHub Discussions](https://github.com/yourusername/shinka-evolve/discussions)
+- [Discord](https://discord.gg/shinka-evolve)
+
+---
+
+## 🎯 次のステップ
+
+準備ができたら、[Part 0: イントロダクション](part00_introduction/)から始めましょう！
+
+---
+
+**作成日**: 2025-11-07
+**バージョン**: 1.0

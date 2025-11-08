@@ -1,0 +1,35 @@
+# Shinka Quality 設定ファイル - 銀行勘定系システム (デモ用)
+
+# テスト対象
+target:
+  module_path: "account_manager.py"
+  test_initial_path: "test_account_manager_initial.py"
+  seeded_bugs_path: "account_manager_buggy.py"
+
+# 適応度関数の重み
+# エンタープライズ向け: バグ検出を最優先
+fitness_weights:
+  coverage: 0.35          # テストカバレッジ
+  bug_detection: 0.45     # バグ検出率（金融系では最重要）
+  efficiency: 0.10        # 実行効率
+  maintainability: 0.10   # コード品質
+
+# 進化パラメータ
+evolution:
+  num_generations: 5      # 世代数 (デモ用に少なめ)
+  population_size: 6      # 個体数
+  mutation_rate: 0.3      # 変異率
+  crossover_rate: 0.2     # 交叉率
+  elite_size: 1           # エリート個体数
+
+# 変異戦略
+mutation_strategies:
+  - "add_edge_cases"       # 境界値テスト
+  - "improve_assertions"   # アサーション強化
+  - "add_parametrize"      # パラメータ化テスト
+
+# 出力
+output:
+  results_dir: "results/"
+  save_all_generations: true
+  visualization: true

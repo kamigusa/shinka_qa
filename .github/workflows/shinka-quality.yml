@@ -1,0 +1,65 @@
+name: Shinka Quality CI
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  quality-check:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install shinka-qa
+        pip install -r requirements.txt
+
+    - name: Run Shinka Quality
+      run: |
+        shinka-qa benchmark --config quality_config.yaml
+
+    - name: Upload results
+      uses: actions/upload-artifact@v3
+      if: always()
+      with:
+        name: quality-results
+        path: results/
+
+    - name: Comment on PR
+      if: github.event_name == 'pull_request'
+      uses: actions/github-script@v6
+      with:
+        script: |
+          const fs = require('fs');
+          const resultsPath = 'results/latest/metrics.json';
+
+          if (fs.existsSync(resultsPath)) {
+            const results = JSON.parse(fs.readFileSync(resultsPath, 'utf8'));
+            const coverage = results.initial_metrics.coverage;
+            const fitness = results.initial_fitness;
+
+            const comment = `## Shinka Quality Report
+
+            - **Coverage**: ${coverage.toFixed(1)}%
+            - **Fitness Score**: ${fitness.toFixed(3)}
+            - **Bug Detection**: ${(results.initial_metrics.bugs_detected * 100).toFixed(1)}%
+
+            Full report available in artifacts.`;
+
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: comment
+            });
+          }
