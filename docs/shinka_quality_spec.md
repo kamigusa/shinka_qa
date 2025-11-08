@@ -565,7 +565,7 @@ class TestMutator:
         """LLMを呼び出してコードを生成"""
         # EVOLVE-BLOCK-START: llm_call
         response = self.llm.chat.completions.create(
-            model="gpt-4",
+            model="gpt-5-nano",
             messages=[
                 {
                     "role": "system",

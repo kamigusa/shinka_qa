@@ -267,7 +267,43 @@ class IslandModel:
 
             self.generation = gen + 1
 
+            # アーリーストッピング: 完璧なテストが生成されたら終了
+            if self._check_perfect_solution():
+                try:
+                    print(f"\n🎯 Perfect solution achieved at generation {gen + 1}!")
+                except UnicodeEncodeError:
+                    print(f"\n[*] Perfect solution achieved at generation {gen + 1}!")
+                print(f"   Coverage: 100%, Bug Detection: 100%, Fitness: {self.global_best.fitness:.3f}")
+                print(f"   Early stopping - skipping remaining {generations - gen - 1} generations\n")
+                break
+
         return self.global_best
+
+    def _check_perfect_solution(self) -> bool:
+        """
+        完璧な解が見つかったかチェック
+
+        Returns:
+            完璧な解が見つかった場合True
+        """
+        if not self.global_best or not self.global_best.metrics:
+            return False
+
+        metrics = self.global_best.metrics
+
+        # カバレッジ、バグ検出、適応度すべてが完璧（またはほぼ完璧）
+        coverage = metrics.get('coverage', 0) / 100.0  # パーセンテージを0-1に変換
+        bug_detection = metrics.get('bugs_detected', 0)
+        fitness = self.global_best.fitness
+
+        # すべてが1.0（100%）または0.999以上
+        is_perfect = (
+            coverage >= 0.999 and
+            bug_detection >= 0.999 and
+            fitness >= 0.999
+        )
+
+        return is_perfect
 
     def _migrate(self):
         """島間で個体を移住させる"""

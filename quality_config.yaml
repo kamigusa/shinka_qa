@@ -24,17 +24,52 @@ evolution:
 
 # LLM settings (optional - will be skipped if not configured)
 llm:
-  provider: "none"             # none, openai, anthropic, deepseek
-  model: "none"
+  # プロバイダー選択: none, auto, openai, gemini, anthropic
+  # none: LLM無効（テンプレートベースのみ）
+  # auto: 環境変数から自動検出、安い順に使用（推奨） ⭐
+  # openai: OpenAI GPT モデル
+  # gemini: Google Gemini モデル（最安）
+  # anthropic: Anthropic Claude モデル（コスパ最高）
+  provider: "google"           # OpenAI GPTモデルを使用
+
+  # モデル選択（providerが"auto"の場合は無視される）
+  # OpenAI: gpt-5-nano, gpt-4-turbo
+  # Gemini: gemini-2.5-flash (推奨・最安), gemini-2.0-flash
+  # Anthropic: claude-4.5-haiku (推奨・コスパ), claude-3.5-sonnet
+  model: "gemini-2.5-flash"
+
   temperature: 0.7
   max_tokens: 2000
+
+  # 🎯 推奨設定: 複数APIキーを設定して自動選択
+  # provider: "auto"
+  # model: "auto"
+  #
+  # → .envに以下のいずれかをセット:
+  #   GEMINI_API_KEY=xxx        # 最安 ($0.075/1M)
+  #   ANTHROPIC_API_KEY=xxx     # コスパ最高 ($0.25/1M)
+  #   OPENAI_API_KEY=xxx        # 従来 ($0.50/1M)
+  # → 自動的に最安のプロバイダーから使用し、エラー時は次にフォールバック
+  #
+  # 単一プロバイダー設定例:
+  # 最安コスト重視:
+  #   provider: "gemini"
+  #   model: "gemini-2.5-flash"
+  #
+  # バランス重視（コスパ最高）:
+  #   provider: "anthropic"
+  #   model: "claude-4.5-haiku"
+  #
+  # OpenAI利用:
+  #   provider: "openai"
+  #   model: "gpt-5-nano"
 
   # UCB1 parameters
   bandit:
     exploration_coefficient: 1.0
     models:
-      - "gpt-5-nano"
-      - "gpt-4-turbo"
+      - "gemini-2.5-flash"
+      - "gemini-2.0-flash"
 
 # Mutation strategies
 mutation_strategies:

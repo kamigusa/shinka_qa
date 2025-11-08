@@ -211,7 +211,7 @@ selection = selector.select()  # {'strategy': '...', 'model': '...'}
 selector.update(
     strategy='add_edge_cases',
     fitness_improvement=0.15,
-    model='gpt-4'
+    model='gemini-2.5-flash'
 )
 
 # 統計情報を取得
@@ -426,7 +426,7 @@ evolution:
 # LLM設定
 llm:
   provider: str                 # "openai", "anthropic", etc.
-  model: str                    # "gpt-4", "claude-3-opus", etc.
+  model: str                    # "gpt-5-nano", "claude-4.5-haiku", etc.
   temperature: float            # デフォルト: 0.7
   max_tokens: int               # デフォルト: 2000
 
@@ -505,8 +505,40 @@ novelty_filter = NoveltyFilter(
 runner = TestRunner(timeout=5)  # 5秒でタイムアウト
 ```
 
+## CLI Reference
+
+### shinka-qa evolve
+
+テストスイートを進化させます。
+
+**Usage:**
+```bash
+shinka-qa evolve [OPTIONS]
+```
+
+**Options:**
+- `--config PATH`: 設定ファイルのパス（必須）
+- `--output-dir PATH`: 出力ディレクトリ（デフォルト: results/）
+- `--verbose`: 詳細ログを表示
+- `--llm / --no-llm`: LLMを使用するかどうか（デフォルト: 無効）
+
+**Examples:**
+```bash
+# LLMなし（高速・無料）
+shinka-qa evolve --config quality_config.yaml
+
+# LLMあり（高品質なテスト生成）
+shinka-qa evolve --config quality_config.yaml --llm
+
+# 詳細ログ付き
+shinka-qa evolve --config quality_config.yaml --verbose --llm
+```
+
+**Note:** LLMを使用する場合は、`.env`ファイルにAPIキーを設定してください。詳細は[Multi-Provider Setup Guide](multi_provider_setup.md)を参照してください。
+
 ## See Also
 
 - [Getting Started Guide](getting_started.md)
+- [Multi-Provider Setup Guide](multi_provider_setup.md)
 - [GitHub Repository](https://github.com/yourusername/shinka-qa)
 - [Issue Tracker](https://github.com/yourusername/shinka-qa/issues)

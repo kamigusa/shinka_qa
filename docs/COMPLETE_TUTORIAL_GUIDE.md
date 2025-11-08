@@ -102,8 +102,11 @@ pip install -e .
 # 2. ベンチマーク
 shinka-qa benchmark --config quality_config.yaml
 
-# 3. 進化実行
+# 3. 進化実行（LLMなし・高速）
 shinka-qa evolve --config quality_config.yaml --verbose
+
+# 3-alt. 進化実行（LLMあり・高品質）
+shinka-qa evolve --config quality_config.yaml --verbose --llm
 
 # 4. 結果可視化
 shinka-qa visualize --results-dir results/run_*/ --generate-report

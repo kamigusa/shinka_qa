@@ -118,6 +118,16 @@ Options:
   --config PATH          設定ファイルのパス（必須）
   --output-dir PATH      出力ディレクトリ（デフォルト: results/）
   --verbose              詳細ログを表示
+  --llm / --no-llm       LLMを使用するかどうか（デフォルト: 無効）
+```
+
+**使用例:**
+```bash
+# テンプレートベースのみ（高速・無料）
+shinka-qa evolve --config quality_config.yaml
+
+# LLM使用（高品質なテスト生成）
+shinka-qa evolve --config quality_config.yaml --llm
 ```
 
 ### benchmark
@@ -260,8 +270,8 @@ pip install "shinka-qa[llm]"
 
 ```yaml
 llm:
-  provider: "openai"
-  model: "gpt-4"
+  provider: "gemini"
+  model: "gemini-2.5-flash"
   temperature: 0.7
 ```
 

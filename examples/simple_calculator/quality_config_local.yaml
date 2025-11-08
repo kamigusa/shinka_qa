@@ -13,11 +13,84 @@ fitness_weights:
   efficiency: 0.15       # 実行効率
   maintainability: 0.1   # コード品質
 
-# 変異戦略
+# 進化パラメータ
+evolution:
+  generations: 30              # 世代数
+  population_size: 20          # 各島の個体数
+  num_islands: 4               # 島の数
+  migration_interval: 10       # 移住間隔（世代）
+  migration_rate: 0.1          # 移住率
+  elite_ratio: 0.3             # エリート選択比率
+
+# LLM設定（サチュレーション検出後のLLM探索用）
+llm:
+  # プロバイダー選択: none, auto, openai, gemini, anthropic
+  # none: LLM無効（テンプレートベースのみ）
+  # auto: 環境変数から自動検出、安い順に使用（推奨） ⭐
+  # openai: OpenAI GPT モデル
+  # gemini: Google Gemini モデル（最安）
+  # anthropic: Anthropic Claude モデル（コスパ最高）
+  provider: "gemini"           # none, auto, openai, gemini, anthropic
+
+  # モデル選択（providerが"auto"の場合は無視される）
+  # OpenAI: gpt-5-nano, gpt-4-turbo
+  # Gemini: gemini-2.5-flash (推奨・最安), gemini-2.0-flash
+  # Anthropic: claude-4.5-haiku (推奨・コスパ), claude-3.5-sonnet
+  model: "gemini-2.5-flash"
+
+  temperature: 0.7
+  max_tokens: 2000
+
+  # 🎯 最大のコスト削減: 複数APIキーを.envにセットして自動選択
+  # provider: "auto"
+  # model: "auto"
+  #
+  # → .envファイルに以下のいずれか（または複数）を設定:
+  #   GEMINI_API_KEY=your-key           # 最安 ($0.075/1M) - 優先度1位
+  #   ANTHROPIC_API_KEY=your-key        # コスパ ($0.25/1M) - 優先度2位
+  #   OPENAI_API_KEY=your-key           # 従来 ($0.50/1M) - 優先度3位
+  # → 自動的に最安から順に試し、エラー時は次にフォールバック
+  #
+  # 単一プロバイダー設定例:
+  # provider: "gemini"
+  # model: "gemini-2.5-flash"  # 月間コスト: $0.75～$1.50 (1000回実行時)
+  #
+  # provider: "anthropic"
+  # model: "claude-4.5-haiku"  # 月間コスト: $2.50～$5.00 (1000回実行時)
+
+# 変異戦略（包括的なソフトウェアテスト技法を網羅）
 mutation_strategies:
-  - "add_edge_cases"
-  - "improve_assertions"
-  - "add_parametrize"
+  # 基本戦略
+  - "add_edge_cases"              # エッジケーステスト
+  - "improve_assertions"           # アサーション改善
+  - "add_parametrize"              # パラメータ化テスト
+  - "add_fixtures"                 # フィクスチャ追加
+  - "add_mocks"                    # モック化
+
+  # 高度なテスト技法
+  - "add_boundary_value_tests"     # 境界値分析 (BVA)
+  - "add_equivalence_partitioning" # 同値分割 (EP)
+  - "add_null_safety_tests"        # Null安全性テスト
+  - "add_state_transition_tests"   # 状態遷移テスト
+  - "add_combination_tests"        # 組み合わせテスト (ペアワイズ)
+
+  # プロパティ・パフォーマンス
+  - "add_property_based_tests"     # プロパティベーステスト
+  - "add_performance_edge_cases"   # パフォーマンステスト
+
+  # ネガティブ・セキュリティ
+  - "add_negative_tests"           # ネガティブテスト
+  - "add_security_tests"           # セキュリティテスト
+
+  # ユーザー・リグレッション
+  - "add_user_scenario_tests"      # ユーザーシナリオテスト
+  - "add_regression_tests"         # リグレッションテスト
+
+# サチュレーション検出設定（テンプレートベース→LLM探索への切り替え）
+saturation_detection:
+  window_size: 5               # 評価するウィンドウサイズ（世代数）
+  improvement_threshold: 0.5   # サチュレーションとみなす改善閾値（%）
+  min_generations: 10          # サチュレーション判定を開始する最小世代数
 
 # 出力
 output:

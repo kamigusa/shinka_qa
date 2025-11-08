@@ -35,7 +35,7 @@ llm:
     models:
       - "gpt-5-nano"
       - "gpt-4-turbo"
-      - "claude-3-opus"
+      - "claude-4.5-haiku"
 
 # 変異戦略
 mutation_strategies:
@@ -50,6 +50,12 @@ limits:
   max_test_time: 10.0          # 単一テストの最大実行時間（秒）
   max_total_time: 300.0        # 全体の最大実行時間（秒）
   max_test_file_size: 5000     # テストファイルの最大行数
+
+# サチュレーション検出設定
+saturation_detection:
+  window_size: 5               # 評価するウィンドウサイズ（世代数）
+  improvement_threshold: 0.5   # サチュレーションとみなす改善閾値（%）
+  min_generations: 10          # サチュレーション判定を開始する最小世代数
 
 # 出力
 output:

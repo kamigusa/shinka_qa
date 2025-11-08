@@ -17,9 +17,34 @@ load_dotenv()
 from ..core.evaluator import QualityEvaluator
 from ..evolution.test_mutator import TestMutator
 from ..evolution.island_model import IslandModel
+from ..evolution.saturation_detector import CoverageSaturationDetector
 from ..utils.test_runner import TestRunner
 from ..visualization.report_generator import ReportGenerator
 from ..visualization.lineage_tree import LineageTreeVisualizer
+from ..llm.llm_client import create_llm_client, create_multi_provider_client
+
+
+def safe_echo(message: str, **kwargs):
+    """
+    Windowsコンソールでも安全にメッセージを表示するヘルパー関数
+    絵文字が表示できない場合は代替文字を使用
+    """
+    try:
+        click.echo(message, **kwargs)
+    except UnicodeEncodeError:
+        # 絵文字を代替テキストに置換
+        replacements = {
+            '🔍': '[i]',
+            '✅': '[+]',
+            '💰': '[$]',
+            '📊': '[=]',
+            '⚠️': '[!]',
+            '❌': '[x]'
+        }
+        safe_message = message
+        for emoji, replacement in replacements.items():
+            safe_message = safe_message.replace(emoji, replacement)
+        click.echo(safe_message, **kwargs)
 
 
 @click.group()
@@ -39,7 +64,9 @@ def cli():
 @click.option('--output-dir', type=click.Path(), default='results/',
               help='出力ディレクトリ（デフォルト: results/）')
 @click.option('--verbose', is_flag=True, help='詳細ログを表示')
-def evolve(config, output_dir, verbose):
+@click.option('--llm/--no-llm', default=False,
+              help='LLMを使用するかどうか（デフォルト: 無効）')
+def evolve(config, output_dir, verbose, llm):
     """
     テストスイートを進化させる
 
@@ -111,29 +138,59 @@ def evolve(config, output_dir, verbose):
 
     # LLMクライアントを初期化
     llm_client = None
-    llm_config = config_data.get('llm', {})
-    llm_model = llm_config.get('model', 'gpt-4')
-    llm_provider = llm_config.get('provider', 'openai')
 
-    # providerが"none"の場合はLLMを無効化
-    if llm_provider == "none" or llm_model == "none":
-        click.echo("LLM disabled: Using fallback mutations only")
+    # コマンドライン引数が優先（--llm/--no-llm）
+    if not llm:
+        click.echo("LLM disabled: Using template-based mutations only (--no-llm)")
     else:
-        api_key = os.getenv('OPENAI_API_KEY')
-        if api_key:
-            try:
-                from openai import OpenAI
-                llm_client = OpenAI(api_key=api_key)
-                click.echo(f"LLM enabled: Using {llm_provider.upper()} {llm_model} for intelligent mutations")
-            except Exception as e:
-                click.echo(f"Warning: Failed to initialize LLM client: {e}")
-                click.echo("Falling back to simple mutations")
+        # LLM有効の場合、設定ファイルから読み込み
+        llm_config = config_data.get('llm', {})
+        llm_model = llm_config.get('model', 'gpt-5-nano')
+        llm_provider = llm_config.get('provider', 'openai')
+
+        # providerが"none"の場合はLLMを無効化
+        if llm_provider == "none" or llm_model == "none":
+            click.echo("LLM disabled: Using fallback mutations only")
+        elif llm_provider == "auto":
+            # 複数プロバイダーの自動検出（コストの安い順に使用）
+            safe_echo("🔍 Auto-detecting available LLM providers...")
+            llm_client = create_multi_provider_client(auto_detect=True)
+
+            if llm_client:
+                safe_echo(f"✅ LLM enabled with multi-provider fallback")
+                if hasattr(llm_client, 'get_available_providers'):
+                    safe_echo("📊 Available providers (cheapest first):")
+                    for provider in llm_client.get_available_providers():
+                        safe_echo(f"   - {provider}")
+            else:
+                safe_echo("⚠️  No LLM providers detected: Using template-based mutations only")
         else:
-            click.echo("LLM not configured: Using simple fallback mutations")
+            # 単一プロバイダーを使用
+            llm_client = create_llm_client(
+                provider=llm_provider,
+                model=llm_model
+            )
+
+            if llm_client:
+                cost = llm_client.get_cost_per_1m_tokens()
+                click.echo(f"LLM enabled: Using {llm_client.get_provider_name()} {llm_client.get_model_name()}")
+                safe_echo(f"💰 Cost: ${cost[0]:.3f}/${cost[1]:.3f} per 1M tokens (input/output)")
+            else:
+                click.echo("LLM not configured: Using simple fallback mutations")
 
     # テストミューテーターを初期化
+    # ハイブリッドアプローチ: 最初は常にテンプレートベースから開始
+    # カバレッジサチュレーション検出後、LLMが利用可能ならLLMモードに切り替え
     mutation_strategies = config_data.get('mutation_strategies', ['add_edge_cases'])
-    mutator = TestMutator(llm_client=llm_client, model=llm_model)
+    mutator = TestMutator(llm_client=llm_client, force_template=True)
+
+    # カバレッジサチュレーション検出器を初期化
+    saturation_config = config_data.get('saturation_detection', {})
+    saturation_detector = CoverageSaturationDetector(
+        window_size=saturation_config.get('window_size', 5),
+        improvement_threshold=saturation_config.get('improvement_threshold', 0.5),
+        min_generations=saturation_config.get('min_generations', 10)
+    )
 
     # 進化を実行
     click.echo(f"\nStarting evolution...")
@@ -185,6 +242,27 @@ def evolve(config, output_dir, verbose):
 
     def generation_callback(gen, generation_bests, global_best):
         """各世代後に呼ばれるコールバック"""
+        # カバレッジを記録
+        current_coverage = global_best.metrics.get('coverage', 0) if global_best.metrics else 0
+        saturation_detector.add_coverage(gen, current_coverage)
+
+        # サチュレーション検出とLLM切り替え
+        if saturation_detector.is_saturated() and mutator.force_template:
+            click.echo(f"\n{'='*60}")
+            safe_echo("📊 Coverage saturation detected!")
+            stats = saturation_detector.get_statistics()
+            click.echo(f"  Current coverage: {stats['current_coverage']:.1f}%")
+            click.echo(f"  Recent improvement: {stats['recent_improvement']:.2f}%")
+            click.echo(f"  Switching to LLM exploration mode...")
+            click.echo(f"{'='*60}\n")
+
+            # LLMモードに切り替え
+            if llm_client:
+                mutator.set_use_llm(True)
+                safe_echo("✅ LLM exploration mode activated")
+            else:
+                safe_echo("⚠️  LLM client not available, continuing with template-based mutations")
+
         if verbose:
             click.echo(f"\nGeneration {gen}/{num_generations}")
             click.echo(f"  Best Fitness: {global_best.fitness:.3f}")
@@ -192,12 +270,18 @@ def evolve(config, output_dir, verbose):
                 click.echo(f"  Coverage: {global_best.metrics.get('coverage', 0):.1f}%")
                 click.echo(f"  Bug Detection: {global_best.metrics.get('bugs_detected', 0):.2f}")
 
+            # テンプレートモードかLLMモードかを表示
+            mode = "LLM Exploration" if not mutator.force_template else "Template-based"
+            click.echo(f"  Mode: {mode}")
+
         # 世代情報を記録
         gen_data = {
             'generation': gen,
             'best_fitness': global_best.fitness,
             'best_metrics': global_best.metrics,
-            'num_islands': len(generation_bests)
+            'num_islands': len(generation_bests),
+            'mode': 'llm' if not mutator.force_template else 'template',
+            'saturation_stats': saturation_detector.get_statistics()
         }
         all_generations.append(gen_data)
 
