@@ -129,11 +129,18 @@ def evolve(config, output_dir, verbose):
     # 適応度評価関数を定義
     def fitness_func(code_str):
         """テストコードの適応度を評価"""
-        temp_test_file = run_dir / 'temp_test.py'
+        # テストファイルをtarget_moduleと同じディレクトリに保存
+        # （インポートが正しく動作するように）
+        temp_test_file = target_module.parent / 'temp_test_evolved.py'
         with open(temp_test_file, 'w', encoding='utf-8') as f:
             f.write(code_str)
-        fitness, metrics = evaluator.evaluate(temp_test_file)
-        return fitness, metrics
+        try:
+            fitness, metrics = evaluator.evaluate(temp_test_file)
+            return fitness, metrics
+        finally:
+            # 評価後にクリーンアップ
+            if temp_test_file.exists():
+                temp_test_file.unlink()
 
     # 変異関数を定義
     def mutate_func(code_str, target_code=""):
