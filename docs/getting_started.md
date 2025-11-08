@@ -1,6 +1,6 @@
-# Getting Started with Shinka Quality
+# Getting Started with Shinka QA
 
-このガイドでは、Shinka Qualityの基本的な使い方を学びます。
+このガイドでは、Shinka QAの基本的な使い方を学びます。
 
 ## インストール
 
@@ -12,13 +12,15 @@
 ### インストール方法
 
 ```bash
-# PyPIからインストール（公開後）
-pip install shinka-qa
-
-# または、ソースからインストール
+# ソースからインストール
 git clone git@github.com:kamigusa/shinka_qa.git
 cd shinka-qa
 pip install -e .
+
+
+# PyPIからインストール（公開準備中）
+# pip install shinka-qa
+
 ```
 
 ## クイックスタート

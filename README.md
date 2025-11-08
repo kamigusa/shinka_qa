@@ -579,7 +579,4 @@ MIT License - 詳細は[LICENSE](LICENSE)を参照してください。
 <div align="center">
 
 **Made by Yoshiki Kanda**
-
-[⬆ トップに戻る](#-shinka-qa)
-
 </div>
