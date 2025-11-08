@@ -8,6 +8,11 @@ import yaml
 from pathlib import Path
 from datetime import datetime
 import json
+import os
+from dotenv import load_dotenv
+
+# .envファイルを読み込み
+load_dotenv()
 
 from ..core.evaluator import QualityEvaluator
 from ..evolution.test_mutator import TestMutator
@@ -104,9 +109,31 @@ def evolve(config, output_dir, verbose):
     population_size = evolution_config.get('population_size', 20)
     num_islands = evolution_config.get('num_islands', 4)
 
+    # LLMクライアントを初期化
+    llm_client = None
+    llm_config = config_data.get('llm', {})
+    llm_model = llm_config.get('model', 'gpt-4')
+    llm_provider = llm_config.get('provider', 'openai')
+
+    # providerが"none"の場合はLLMを無効化
+    if llm_provider == "none" or llm_model == "none":
+        click.echo("LLM disabled: Using fallback mutations only")
+    else:
+        api_key = os.getenv('OPENAI_API_KEY')
+        if api_key:
+            try:
+                from openai import OpenAI
+                llm_client = OpenAI(api_key=api_key)
+                click.echo(f"LLM enabled: Using {llm_provider.upper()} {llm_model} for intelligent mutations")
+            except Exception as e:
+                click.echo(f"Warning: Failed to initialize LLM client: {e}")
+                click.echo("Falling back to simple mutations")
+        else:
+            click.echo("LLM not configured: Using simple fallback mutations")
+
     # テストミューテーターを初期化
     mutation_strategies = config_data.get('mutation_strategies', ['add_edge_cases'])
-    mutator = TestMutator(llm_client=None)  # LLMなしでフォールバック変異を使用
+    mutator = TestMutator(llm_client=llm_client, model=llm_model)
 
     # 進化を実行
     click.echo(f"\nStarting evolution...")

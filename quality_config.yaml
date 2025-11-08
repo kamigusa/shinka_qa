@@ -24,8 +24,8 @@ evolution:
 
 # LLM settings (optional - will be skipped if not configured)
 llm:
-  provider: "openai"           # openai, anthropic, deepseek
-  model: "gpt-4"
+  provider: "none"             # none, openai, anthropic, deepseek
+  model: "none"
   temperature: 0.7
   max_tokens: 2000
 
@@ -33,7 +33,7 @@ llm:
   bandit:
     exploration_coefficient: 1.0
     models:
-      - "gpt-4"
+      - "gpt-5-nano"
       - "gpt-4-turbo"
 
 # Mutation strategies

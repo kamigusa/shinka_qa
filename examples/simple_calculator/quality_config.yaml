@@ -25,7 +25,7 @@ evolution:
 # LLM設定
 llm:
   provider: "openai"           # openai, anthropic, deepseek
-  model: "gpt-4"
+  model: "gpt-5-nano"
   temperature: 0.7
   max_tokens: 2000
 
@@ -33,7 +33,7 @@ llm:
   bandit:
     exploration_coefficient: 1.0
     models:
-      - "gpt-4"
+      - "gpt-5-nano"
       - "gpt-4-turbo"
       - "claude-3-opus"
 

@@ -90,8 +90,8 @@ class QualityEvaluator:
             result = subprocess.run(
                 [
                     'pytest',
-                    str(test_file),
-                    f'--cov={self.target_module.name}',
+                    test_file.name,  # ファイル名のみを渡す（cwdが親ディレクトリなので）
+                    f'--cov={self.target_module.stem}',
                     '--cov-report=term-missing',
                     '--tb=short',
                     '-v'
@@ -105,6 +105,9 @@ class QualityEvaluator:
             # カバレッジ結果を解析
             output = result.stdout + result.stderr
 
+            # デバッグ: 出力を表示
+            # print(f"DEBUG: Coverage output:\n{output}")
+
             # "TOTAL" 行からカバレッジパーセンテージを抽出
             for line in output.split('\n'):
                 if 'TOTAL' in line or self.target_module.stem in line or self.target_module.name in line:
@@ -113,11 +116,13 @@ class QualityEvaluator:
                         if '%' in part:
                             try:
                                 coverage_percentage = float(part.rstrip('%'))
+                                # print(f"DEBUG: Found coverage: {coverage_percentage}%")
                                 return coverage_percentage
                             except ValueError:
                                 continue
 
             # カバレッジ情報が見つからない場合は0を返す
+            # print(f"WARNING: No coverage information found in output")
             return 0.0
 
         except (subprocess.TimeoutExpired, Exception) as e:
@@ -185,7 +190,7 @@ class QualityEvaluator:
 
         try:
             result = subprocess.run(
-                ['pytest', str(test_file), '-v', '--quiet'],
+                ['pytest', test_file.name, '-v', '--quiet'],
                 capture_output=True,
                 timeout=10,
                 cwd=str(self.target_module.parent)
