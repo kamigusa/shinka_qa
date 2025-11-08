@@ -285,7 +285,7 @@ llm:
 
 問題が発生した場合：
 
-1. [GitHubのIssues](https://github.com/yourusername/shinka-qa/issues)で既存の問題を確認
+1. [GitHubのIssues](https://github.com/Kamigusa/shinka_qa/issues)で既存の問題を確認
 2. 新しいIssueを作成
 3. 以下の情報を含める：
    - Pythonバージョン

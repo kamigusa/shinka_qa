@@ -799,9 +799,7 @@ shinka-qa evolve --initial-file initial_tests.py
 ### Q7: サポートは？
 
 **A**:
-- GitHub Issues: バグ報告、機能要望
-- GitHub Discussions: 質問、議論
-- Slack: リアルタイムサポート
+- [GitHub Issues](https://github.com/Kamigusa/shinka_qa/issues): バグ報告、機能要望、質問
 ---
 
 ## 🚀 次のステップ

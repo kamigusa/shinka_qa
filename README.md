@@ -88,8 +88,8 @@ def test_divide_zero():
 
 ```bash
 # リポジトリをクローン
-git clone https://github.com/yourusername/shinka-qa.git
-cd shinka-qa
+git clone https://github.com/Kamigusa/shinka_qa.git
+cd shinka_qa
 
 # インストール（依存関係も自動）
 pip install -e .
@@ -99,8 +99,8 @@ pip install -e .
 
 ```bash
 # リポジトリをクローン
-git clone https://github.com/yourusername/shinka-qa.git
-cd shinka-qa
+git clone https://github.com/Kamigusa/shinka_qa.git
+cd shinka_qa
 
 # 仮想環境を作成・有効化
 python -m venv venv
@@ -786,7 +786,7 @@ pytest tests/ --cov=shinka_quality
 
 ### コントリビューションの流れ
 
-1. Issue を作成して議論
+1. [Issue](https://github.com/Kamigusa/shinka_qa/issues) を作成して議論
 2. フォークしてブランチを作成: `git checkout -b feature/amazing-feature`
 3. コミット: `git commit -m 'Add amazing feature'`
 4. プッシュ: `git push origin feature/amazing-feature`

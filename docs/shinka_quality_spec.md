@@ -839,7 +839,7 @@ def is_prime(n):
 
 ```bash
 # インストール
-git clone https://github.com/yourusername/shinka-qa.git
+git clone https://github.com/Kamigusa/shinka_qa.git
 cd shinka-qa
 pip install -e .
 

@@ -540,5 +540,5 @@ shinka-qa evolve --config quality_config.yaml --verbose --llm
 
 - [Getting Started Guide](getting_started.md)
 - [Multi-Provider Setup Guide](multi_provider_setup.md)
-- [GitHub Repository](https://github.com/yourusername/shinka-qa)
-- [Issue Tracker](https://github.com/yourusername/shinka-qa/issues)
+- [GitHub Repository](https://github.com/Kamigusa/shinka_qa)
+- [Issue Tracker](https://github.com/Kamigusa/shinka_qa/issues)
