@@ -219,9 +219,15 @@ class TestMutator:
             return test_code + "\n\n# TODO: Add more edge case tests"
         elif strategy == 'improve_assertions':
             # assertをより具体的に変更（簡易版）
-            return test_code.replace(
-                'assert result',
-                'assert result is not None'
-            )
+            # すでに is not None が含まれている場合は置換しない
+            if 'is not None' not in test_code:
+                # 正規表現を使って、assert result == value のパターンを改善
+                improved_code = re.sub(
+                    r'assert\s+(\w+)\s*==',
+                    r'assert \1 is not None and \1 ==',
+                    test_code
+                )
+                return improved_code
+            return test_code
         else:
             return test_code
