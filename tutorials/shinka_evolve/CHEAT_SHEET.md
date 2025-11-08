@@ -259,8 +259,7 @@ num_generations=200
 ## 🔗 リンク
 
 - [チュートリアル](README.md)
-- [APIリファレンス](https://docs.shinka-evolve.com/api)
-- [GitHub](https://github.com/yourusername/shinka-evolve)
+- [GitHub](https://github.com/SakanaAI/ShinkaEvolve)
 
 ---
 

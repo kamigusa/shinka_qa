@@ -629,7 +629,7 @@ sqv  # 可視化
 
 ## 🔗 リンク
 
-- **GitHub**: https://github.com/yourusername/shinka-qa
+- **GitHub**: https://github.com/kamigusa/shinka_qa
 - **チュートリアル**: [tutorials/README.md](README.md)
 
 ---

@@ -44,10 +44,10 @@ llm = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/yourusername/shinka-qa"
-Documentation = "https://github.com/yourusername/shinka-qa/docs"
-Repository = "https://github.com/yourusername/shinka-qa"
-Issues = "https://github.com/yourusername/shinka-qa/issues"
+Homepage = "https://github.com/Kamigusa/shinka-qa"
+Documentation = "https://github.com/Kamigusa/shinka-qa/docs"
+Repository = "https://github.com/Kamigusa/shinka-qa"
+Issues = "https://github.com/Kamigusa/shinka-qa/issues"
 
 [project.scripts]
 shinka-qa = "shinka_quality.cli.main:cli"

@@ -484,8 +484,8 @@ def divide(a, b):
 ### 開発環境のセットアップ
 
 ```bash
-# リポジトリをクローン
-git clone https://github.com/yourusername/shinka-qa.git
+# リポジトリをクローン(SSH)
+git clone git@github.com:kamigusa/shinka_qa.git
 cd shinka-qa
 
 # 開発依存関係をインストール
@@ -517,14 +517,10 @@ MIT License - 詳細は[LICENSE](LICENSE)を参照してください。
 ## 🙏 謝辞
 
 - **[ShinkaEvolve](https://github.com/SakanaAI/shinkaevolve)** - このプロジェクトのベースとなったフレームワーク
-- **進化的アルゴリズムコミュニティ** - 研究と洞察の共有
-- **すべてのコントリビューター** - バグ報告、機能提案、プルリクエスト
-
----
 
 <div align="center">
 
-**Made with ❤️ by the Shinka Quality Team**
+**Made by Yoshiki Kanda**
 
 [⬆ トップに戻る](#-shinka-qa)
 
