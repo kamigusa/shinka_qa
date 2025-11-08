@@ -1,0 +1,55 @@
+# Shinka Quality CI/CD Configuration
+
+# Test target - using simple_calculator as default example
+target:
+  module_path: "examples/simple_calculator/calculator.py"
+  test_initial_path: "examples/simple_calculator/test_calculator_initial.py"
+  seeded_bugs_path: "examples/simple_calculator/calculator_buggy.py"
+
+# Fitness function weights
+fitness_weights:
+  coverage: 0.4          # Test coverage
+  bug_detection: 0.35    # Bug detection rate
+  efficiency: 0.15       # Execution efficiency
+  maintainability: 0.1   # Code quality
+
+# Evolution parameters (reduced for CI/CD)
+evolution:
+  generations: 10              # Number of generations (reduced for CI speed)
+  population_size: 10          # Population size per island (reduced for CI)
+  num_islands: 2               # Number of islands (reduced for CI)
+  migration_interval: 5        # Migration interval (generations)
+  migration_rate: 0.1          # Migration rate
+  elite_ratio: 0.3             # Elite selection ratio
+
+# LLM settings (optional - will be skipped if not configured)
+llm:
+  provider: "openai"           # openai, anthropic, deepseek
+  model: "gpt-4"
+  temperature: 0.7
+  max_tokens: 2000
+
+  # UCB1 parameters
+  bandit:
+    exploration_coefficient: 1.0
+    models:
+      - "gpt-4"
+      - "gpt-4-turbo"
+
+# Mutation strategies
+mutation_strategies:
+  - "add_edge_cases"
+  - "improve_assertions"
+  - "add_parametrize"
+
+# Execution limits
+limits:
+  max_test_time: 10.0          # Maximum execution time per test (seconds)
+  max_total_time: 180.0        # Maximum total execution time (seconds - reduced for CI)
+  max_test_file_size: 5000     # Maximum test file lines
+
+# Output
+output:
+  results_dir: "results/"
+  save_all_generations: false  # Set to false to save space in CI
+  visualization: false         # Set to false to skip visualization in CI

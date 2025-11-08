@@ -50,11 +50,11 @@ Repository = "https://github.com/Kamigusa/shinka-qa"
 Issues = "https://github.com/Kamigusa/shinka-qa/issues"
 
 [project.scripts]
-shinka-qa = "shinka_quality.cli.main:cli"
+shinka-qa = "shinka_qa.cli.main:cli"
 
 [tool.setuptools.packages.find]
 where = ["."]
-include = ["shinka_quality*"]
+include = ["shinka_qa*"]
 exclude = ["tests*", "examples*", "docs*"]
 
 [tool.pytest.ini_options]
@@ -65,7 +65,7 @@ testpaths = [
 ]
 
 [tool.coverage.run]
-source = ["shinka_quality"]
+source = ["shinka_qa"]
 omit = [
     "*/tests/*",
     "*/examples/*",

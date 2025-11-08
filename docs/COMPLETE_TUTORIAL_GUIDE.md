@@ -799,47 +799,6 @@ shinka-qa evolve --initial-file initial_tests.py
 - GitHub Issues: バグ報告、機能要望
 - GitHub Discussions: 質問、議論
 - Slack: リアルタイムサポート
-
----
-
-## 📚 リソース
-
-### 公式ドキュメント
-- Shinka Evolve: https://docs.shinka-evolve.com
-
-### チュートリアル
-- Shinka QA: `tutorials/`
-- Shinka Evolve: `tutorials_evolve/`
-
-### サンプルコード
-- GitHub: https://github.com/yourusername/shinka
-
-### コミュニティ
-- Forum: https://community.shinka.ai
-- Slack: https://shinka.slack.com
-- Twitter: @shinkaframework
-
----
-
-## 🎓 認定プログラム
-
-### Shinka認定エンジニア
-
-**レベル1: アソシエイト**
-- Shinka QA基礎マスター
-- Shinka Evolve基礎マスター
-- 試験時間: 1時間
-
-**レベル2: プロフェッショナル**
-- 実プロジェクトでの活用
-- カスタム戦略作成
-- 試験時間: 2時間
-
-**レベル3: エキスパート**
-- 組織展開
-- アーキテクチャ設計
-- 試験時間: 3時間
-
 ---
 
 ## 🚀 次のステップ
@@ -888,16 +847,6 @@ cp examples/quality_config.yaml your_project/
 cd your_project
 shinka-qa evolve --config quality_config.yaml
 ```
-
----
-
-## 🙏 謝辞
-
-このプロジェクトは、多くの方々の貢献によって成り立っています：
-- コントリビューター
-- ベータテスター
-- フィードバック提供者
-- コミュニティメンバー
 
 ---
 

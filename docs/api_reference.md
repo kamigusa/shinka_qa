@@ -9,7 +9,7 @@ Shinka Qualityの主要なクラスと関数のリファレンスドキュメン
 テストスイートの品質を評価するクラス。
 
 ```python
-from shinka_quality.core.evaluator import QualityEvaluator
+from shinka_qa.core.evaluator import QualityEvaluator
 ```
 
 #### Constructor
@@ -68,7 +68,7 @@ set_baseline(initial_test_file: Path)
 テストコードを変異させるクラス。
 
 ```python
-from shinka_quality.evolution.test_mutator import TestMutator
+from shinka_qa.evolution.test_mutator import TestMutator
 ```
 
 #### Constructor
@@ -116,7 +116,7 @@ mutate(
 島モデル進化を管理するクラス。
 
 ```python
-from shinka_quality.evolution.island_model import IslandModel
+from shinka_qa.evolution.island_model import IslandModel
 ```
 
 #### Constructor
@@ -157,7 +157,7 @@ evolve(
 
 **Example:**
 ```python
-from shinka_quality.evolution.island_model import IslandModel
+from shinka_qa.evolution.island_model import IslandModel
 
 island_model = IslandModel(
     num_islands=4,
@@ -186,7 +186,7 @@ best_individual = island_model.evolve(
 Upper Confidence Bound バンディットアルゴリズム。
 
 ```python
-from shinka_quality.evolution.ucb_bandit import UCB1Bandit, AdaptiveBanditSelector
+from shinka_qa.evolution.ucb_bandit import UCB1Bandit, AdaptiveBanditSelector
 ```
 
 #### AdaptiveBanditSelector
@@ -223,7 +223,7 @@ stats = selector.get_statistics()
 新規性フィルタリング。
 
 ```python
-from shinka_quality.evolution.novelty_filter import NoveltyFilter
+from shinka_qa.evolution.novelty_filter import NoveltyFilter
 ```
 
 #### Constructor
@@ -253,7 +253,7 @@ diversity = filter.get_diversity_score()
 進化過程の知見を記録・共有。
 
 ```python
-from shinka_quality.evolution.meta_scratchpad import MetaScratchpad
+from shinka_qa.evolution.meta_scratchpad import MetaScratchpad
 ```
 
 #### Methods
@@ -288,7 +288,7 @@ summary = scratchpad.get_progress_summary()
 HTMLレポートを生成。
 
 ```python
-from shinka_quality.visualization.report_generator import ReportGenerator
+from shinka_qa.visualization.report_generator import ReportGenerator
 ```
 
 #### Methods
@@ -308,7 +308,7 @@ summary = report_gen.generate_summary_text()
 系譜ツリーを可視化。
 
 ```python
-from shinka_quality.visualization.lineage_tree import LineageTreeVisualizer
+from shinka_qa.visualization.lineage_tree import LineageTreeVisualizer
 ```
 
 #### Methods
@@ -342,7 +342,7 @@ tree_file = visualizer.save_tree()
 pytest実行ラッパー。
 
 ```python
-from shinka_quality.utils.test_runner import TestRunner
+from shinka_qa.utils.test_runner import TestRunner
 ```
 
 #### Methods

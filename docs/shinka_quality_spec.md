@@ -113,7 +113,7 @@ shinka-qa/
 ├── README.md
 ├── pyproject.toml
 ├── setup.py
-├── shinka_quality/
+├── shinka_qa/
 │   ├── __init__.py
 │   ├── core/
 │   │   ├── __init__.py
@@ -142,7 +142,7 @@ shinka-qa/
 │       ├── test_processor_initial.py
 │       └── quality_config.yaml
 ├── tests/
-│   └── test_shinka_quality.py
+│   └── test_shinka_qa.py
 └── docs/
     ├── getting_started.md
     └── api_reference.md
@@ -1085,9 +1085,9 @@ def run_with_timeout(func, timeout=10):
 ShinkaEvolveをフォークし、ソフトウェア品質改善（テストカバレッジとバグ検出）に特化したツール「Shinka Quality」を開発する。
 
 # 実装するファイル
-1. shinka_quality/core/evaluator.py - 適応度関数（上記仕様参照）
-2. shinka_quality/evolution/test_mutator.py - テスト変異オペレータ
-3. shinka_quality/cli/main.py - CLIインターフェース
+1. shinka_qa/core/evaluator.py - 適応度関数（上記仕様参照）
+2. shinka_qa/evolution/test_mutator.py - テスト変異オペレータ
+3. shinka_qa/cli/main.py - CLIインターフェース
 4. examples/simple_calculator/calculator.py - サンプルコード
 5. examples/simple_calculator/test_calculator_initial.py - 初期テスト
 6. examples/simple_calculator/calculator_buggy.py - バグ版

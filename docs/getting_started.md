@@ -16,7 +16,7 @@
 pip install shinka-qa
 
 # または、ソースからインストール
-git clone https://github.com/yourusername/shinka-qa.git
+git clone git@github.com:kamigusa/shinka_qa.git
 cd shinka-qa
 pip install -e .
 ```
