@@ -1,252 +1,252 @@
-# Banking System Example - Shinka Quality Demonstration
+# Banking System Example - Shinka Quality デモンストレーション
 
-This example demonstrates Shinka Quality's capabilities on a realistic **enterprise banking system** module. It showcases how automated test evolution can dramatically improve test coverage and bug detection in mission-critical financial software.
+この例では、現実的な**エンタープライズ銀行システム**モジュールにおけるShinka Qualityの機能を実証します。ミッションクリティカルな金融ソフトウェアにおいて、自動テスト進化がテストカバレッジとバグ検出を劇的に向上させる様子を示します。
 
-## Overview
+## 概要
 
-**Module**: `account_manager.py` - Bank account management system
-**Complexity**: 129 statements, 46 branches
-**Domain**: Financial services (regulated industry)
-**Initial State**: Legacy test suite with only happy-path tests (58% coverage)
+**モジュール**: `account_manager.py` - 銀行口座管理システム
+**複雑度**: 129ステートメント、46分岐
+**ドメイン**: 金融サービス（規制産業）
+**初期状態**: ハッピーパステストのみのレガシーテストスイート（58%カバレッジ）
 
-## What This Example Demonstrates
+## この例が示すもの
 
-### 1. Realistic Enterprise Scenario
+### 1. 現実的なエンタープライズシナリオ
 
-- **Complex Business Logic**: Minimum balance requirements, daily withdrawal limits, transfer fees
-- **Multiple Error Conditions**: InsufficientBalanceError, AccountFrozenError, InvalidAmountError
-- **State Management**: Account status (ACTIVE, FROZEN, CLOSED)
-- **Audit Requirements**: Transaction history with filtering
-- **Financial Calculations**: Interest calculation with validation
+- **複雑なビジネスロジック**: 最低残高要件、日次引出限度額、送金手数料
+- **複数のエラー条件**: InsufficientBalanceError、AccountFrozenError、InvalidAmountError
+- **状態管理**: 口座ステータス（ACTIVE、FROZEN、CLOSED）
+- **監査要件**: フィルタリング機能付き取引履歴
+- **財務計算**: バリデーション付き利息計算
 
-### 2. Evolution Results
+### 2. 進化の結果
 
-| Metric | Before | After | Improvement |
+| 指標 | 改善前 | 改善後 | 改善度 |
 |--------|--------|-------|-------------|
-| **Test Cases** | 5 | 35 | +600% |
-| **Branch Coverage** | 58% | 95% | +37 points |
-| **Bug Detection** | 22% (2/9) | 100% (9/9) | +78 points |
-| **Fitness Score** | 0.456 | 0.924 | +103% |
+| **テストケース数** | 5 | 35 | +600% |
+| **分岐カバレッジ** | 58% | 95% | +37ポイント |
+| **バグ検出率** | 22% (2/9) | 100% (9/9) | +78ポイント |
+| **適応度スコア** | 0.456 | 0.924 | +103% |
 
-### 3. Economic Impact
+### 3. 経済的インパクト
 
-- **Time Saved**: 22.5 hours (90% reduction in test creation time)
-- **Cost Savings**: ¥180,000 in engineering costs
-- **Bug Prevention Value**: ¥3,500,000 (7 critical bugs prevented)
-- **Total ROI**: ¥3,680,000
+- **節約時間**: 22.5時間（テスト作成時間90%削減）
+- **コスト削減**: ¥180,000のエンジニアリングコスト
+- **バグ防止価値**: ¥3,500,000（7つの重大バグを防止）
+- **総ROI**: ¥3,680,000
 
-## Files in This Example
+## この例に含まれるファイル
 
 ```
 banking_system/
-├── account_manager.py                      # Production code (correct version)
-├── account_manager_buggy.py                # Bug-seeded version (9 intentional bugs)
-├── test_account_manager_initial.py         # Legacy test suite (5 tests, 58% coverage)
-├── test_account_manager_evolved_gen1.py    # Generation 1 (10 tests, 63% coverage)
-├── test_account_manager_evolved_gen2.py    # Generation 2 (20 tests, 79% coverage)
-├── test_account_manager_evolved_final.py   # Final generation (35 tests, 95% coverage)
-├── quality_config.yaml                     # Shinka Quality configuration
-├── evolution_results.json                  # Detailed metrics and progression
-├── EVOLUTION_REPORT.md                     # Detailed text report
-├── evolution_report.html                   # Interactive HTML report with charts
-└── CASE_STUDY.md                           # Executive-level case study
+├── account_manager.py                      # 本番コード（正常版）
+├── account_manager_buggy.py                # バグ混入版（意図的に9個のバグ）
+├── test_account_manager_initial.py         # レガシーテストスイート（5テスト、58%カバレッジ）
+├── test_account_manager_evolved_gen1.py    # 第1世代（10テスト、63%カバレッジ）
+├── test_account_manager_evolved_gen2.py    # 第2世代（20テスト、79%カバレッジ）
+├── test_account_manager_evolved_final.py   # 最終世代（35テスト、95%カバレッジ）
+├── quality_config.yaml                     # Shinka Quality設定
+├── evolution_results.json                  # 詳細なメトリクスと進行状況
+├── EVOLUTION_REPORT.md                     # 詳細なテキストレポート
+├── evolution_report.html                   # グラフ付きインタラクティブHTMLレポート
+└── CASE_STUDY.md                           # 経営層向けケーススタディ
 
 ```
 
-## Quick Start
+## クイックスタート
 
-### 1. Run Initial Tests (Baseline)
+### 1. 初期テストの実行（ベースライン）
 
 ```bash
 cd examples/banking_system
 
-# Run tests and measure coverage
+# テストを実行してカバレッジを測定
 pytest test_account_manager_initial.py -v --cov=account_manager --cov-report=term-missing --cov-branch
 
-# Expected: 5 passed, 58% branch coverage
+# 期待結果: 5件成功、58%分岐カバレッジ
 ```
 
-### 2. Run Evolved Tests (Final)
+### 2. 進化後テストの実行（最終版）
 
 ```bash
-# Run evolved test suite
+# 進化したテストスイートを実行
 pytest test_account_manager_evolved_final.py -v --cov=account_manager --cov-report=term-missing --cov-branch
 
-# Expected: 35 passed, 95% branch coverage
+# 期待結果: 35件成功、95%分岐カバレッジ
 ```
 
-### 3. Test Bug Detection (Initial vs Evolved)
+### 3. バグ検出のテスト（初期版 vs 進化版）
 
 ```bash
-# Backup original file
+# 元のファイルをバックアップ
 cp account_manager.py account_manager_backup.py
 
-# Replace with buggy version
+# バグ版に置き換え
 cp account_manager_buggy.py account_manager.py
 
-# Test with initial suite (catches 2/9 bugs)
+# 初期テストスイートでテスト（2/9個のバグを検出）
 pytest test_account_manager_initial.py -v
 
-# Test with evolved suite (catches 9/9 bugs)
+# 進化版テストスイートでテスト（9/9個のバグを検出）
 pytest test_account_manager_evolved_final.py -v
 
-# Restore original
+# 元に戻す
 mv account_manager_backup.py account_manager.py
 ```
 
-### 4. View Evolution Report
+### 4. 進化レポートの表示
 
-Open `evolution_report.html` in your browser to see:
-- Interactive charts showing coverage and bug detection progression
-- Generation-by-generation breakdown
-- ROI analysis
-- Enterprise benefits summary
+ブラウザで `evolution_report.html` を開くと、以下が表示されます：
+- カバレッジとバグ検出の進行を示すインタラクティブグラフ
+- 世代ごとの詳細
+- ROI分析
+- エンタープライズベネフィットのサマリー
 
-## Intentional Bugs in account_manager_buggy.py
+## account_manager_buggy.py の意図的なバグ
 
-The bug-seeded version contains 9 realistic bugs commonly found in financial systems:
+バグ混入版には、金融システムでよく見られる9つの現実的なバグが含まれています：
 
-1. **Bug #1**: Account number validation too permissive (allows 11+ digits)
-   - Location: `__init__`, line 80
-   - Type: Input validation
+1. **バグ #1**: 口座番号バリデーションが緩すぎる（11桁以上を許可）
+   - 場所: `__init__`, 80行目
+   - 種類: 入力バリデーション
 
-2. **Bug #2**: Minimum balance check incorrect (< instead of <=)
-   - Location: `__init__`, line 87
-   - Type: Business logic
+2. **バグ #2**: 最低残高チェックが不正（< の代わりに <=）
+   - 場所: `__init__`, 87行目
+   - 種類: ビジネスロジック
 
-3. **Bug #3**: Zero amount deposit allowed
-   - Location: `deposit`, line 104
-   - Type: Input validation
+3. **バグ #3**: ゼロ額の入金が許可される
+   - 場所: `deposit`, 104行目
+   - 種類: 入力バリデーション
 
-4. **Bug #4**: Large transaction limit too high (10 billion instead of 100 million)
-   - Location: `deposit`, line 108
-   - Type: Business rule
+4. **バグ #4**: 大規模取引制限が高すぎる（1億ではなく100億）
+   - 場所: `deposit`, 108行目
+   - 種類: ビジネスルール
 
-5. **Bug #5**: Minimum balance check inverted (> instead of <)
-   - Location: `withdraw`, line 135
-   - Type: Logic error (critical)
+5. **バグ #5**: 最低残高チェックが反転（< の代わりに >）
+   - 場所: `withdraw`, 135行目
+   - 種類: ロジックエラー（重大）
 
-6. **Bug #6**: Daily withdrawal limit check missing
-   - Location: `withdraw`, lines 141-144 (commented out)
-   - Type: Business rule violation
+6. **バグ #6**: 日次引出限度額チェックが欠落
+   - 場所: `withdraw`, 141-144行目（コメントアウト）
+   - 種類: ビジネスルール違反
 
-7. **Bug #7**: Frozen receiver account check missing
-   - Location: `transfer`, lines 174-175 (commented out)
-   - Type: Business rule violation
+7. **バグ #7**: 凍結された受取口座のチェックが欠落
+   - 場所: `transfer`, 174-175行目（コメントアウト）
+   - 種類: ビジネスルール違反
 
-8. **Bug #8**: Transfer fee not included in total amount
-   - Location: `transfer`, line 181
-   - Type: Financial calculation error
+8. **バグ #8**: 送金手数料が合計額に含まれていない
+   - 場所: `transfer`, 181行目
+   - 種類: 財務計算エラー
 
-9. **Bug #9**: Negative interest rate validation missing
-   - Location: `calculate_interest`, lines 268-269 (commented out)
-   - Type: Input validation
+9. **バグ #9**: マイナス金利のバリデーションが欠落
+   - 場所: `calculate_interest`, 268-269行目（コメントアウト）
+   - 種類: 入力バリデーション
 
-## Configuration
+## 設定
 
-The `quality_config.yaml` uses enterprise-focused settings:
+`quality_config.yaml` はエンタープライズ向けの設定を使用しています：
 
 ```yaml
 fitness_weights:
-  coverage: 0.35          # Test coverage
-  bug_detection: 0.45     # Bug detection (highest priority for financial systems)
-  efficiency: 0.10        # Execution efficiency
-  maintainability: 0.10   # Code quality
+  coverage: 0.35          # テストカバレッジ
+  bug_detection: 0.45     # バグ検出（金融システムでは最優先）
+  efficiency: 0.10        # 実行効率
+  maintainability: 0.10   # コード品質
 ```
 
-**Rationale**: Financial systems prioritize correctness over speed, so bug detection has the highest weight (45%).
+**理由**: 金融システムでは正確性がスピードより優先されるため、バグ検出の重みが最も高く（45%）設定されています。
 
-## Evolution Strategy
+## 進化戦略
 
-The example uses three mutation strategies:
+この例では3つの変異戦略を使用しています：
 
-1. **add_edge_cases**: Adds boundary value tests (0, negative, maximum)
-2. **improve_assertions**: Enhances assertions for better validation
-3. **add_parametrize**: Creates parameterized tests for multiple scenarios
+1. **add_edge_cases**: 境界値テストを追加（0、負数、最大値）
+2. **improve_assertions**: より良いバリデーションのためにアサーションを強化
+3. **add_parametrize**: 複数シナリオ向けのパラメータ化テストを作成
 
-## Enterprise Relevance
+## エンタープライズにおける関連性
 
-### Regulatory Compliance
+### 規制コンプライアンス
 
-- **SOX (Sarbanes-Oxley Act)**: 95% coverage demonstrates effective internal controls
-- **Basel III**: Comprehensive testing reduces operational risk
-- **FISC Safety Standards**: Meets Japanese financial system security requirements
+- **SOX（サーベンス・オクスリー法）**: 95%カバレッジは効果的な内部統制を実証
+- **Basel III**: 包括的テストによりオペレーショナルリスクを削減
+- **FISC安全対策基準**: 日本の金融システムセキュリティ要件を満たす
 
-### Risk Mitigation
+### リスク軽減
 
-- **Zero Production Bugs**: 100% bug detection prevents financial errors
-- **Audit Trail**: Transaction history tests ensure regulatory compliance
-- **Safe Refactoring**: Comprehensive tests enable confident code improvements
+- **本番環境でのゼロバグ**: 100%バグ検出により金融エラーを防止
+- **監査証跡**: 取引履歴テストにより規制コンプライアンスを確保
+- **安全なリファクタリング**: 包括的テストにより自信を持ってコード改善を実施
 
-### Cost Efficiency
+### コスト効率
 
-- **Manual Testing**: 25 hours @ ¥8,000/hour = ¥200,000
-- **Shinka Quality**: 2.5 hours = ¥20,000
-- **Savings**: ¥180,000 per module
+- **手動テスト**: 25時間 @ ¥8,000/時間 = ¥200,000
+- **Shinka Quality**: 2.5時間 = ¥20,000
+- **節約額**: モジュールあたり¥180,000
 
-For a typical banking system with 50+ modules:
-- **Total Savings**: ¥9,000,000+
-- **Bug Prevention**: ¥175,000,000+ (350 bugs @ ¥500,000 each)
-- **ROI**: 920x
+50以上のモジュールを持つ典型的な銀行システムの場合：
+- **総節約額**: ¥9,000,000以上
+- **バグ防止**: ¥175,000,000以上（350バグ @ ¥500,000/バグ）
+- **ROI**: 920倍
 
-## Next Steps
+## 次のステップ
 
-### For Evaluation
+### 評価用
 
-1. **Review CASE_STUDY.md**: Executive-level overview with business case
-2. **Open evolution_report.html**: Visual presentation of results
-3. **Run tests yourself**: Verify the results in your environment
-4. **Test on your code**: Apply Shinka Quality to your own modules
+1. **CASE_STUDY.mdを確認**: ビジネスケース付き経営層向け概要
+2. **evolution_report.htmlを開く**: 結果のビジュアルプレゼンテーション
+3. **自分でテストを実行**: 自身の環境で結果を検証
+4. **自分のコードでテスト**: 自身のモジュールにShinka Qualityを適用
 
-### For Production Use
+### 本番環境での使用
 
-1. **Integrate with CI/CD**: Add Shinka Quality to your pipeline
-2. **Set up periodic evolution**: Run weekly to maintain test quality
-3. **Customize fitness weights**: Adjust priorities for your domain
-4. **Scale across modules**: Apply to your entire codebase
+1. **CI/CDとの統合**: パイプラインにShinka Qualityを追加
+2. **定期的な進化の設定**: 週次でテスト品質を維持
+3. **適応度の重みをカスタマイズ**: 自分のドメインに合わせて優先度を調整
+4. **モジュール全体にスケール**: コードベース全体に適用
 
 ## FAQ
 
-### Q: Are these realistic bugs?
+### Q: これらは現実的なバグですか？
 
-**A**: Yes. Each bug is based on real issues found in production financial systems:
-- Off-by-one errors in validation
-- Inverted comparison operators
-- Missing business rule checks
-- Calculation errors with fees
-- Commented-out security checks
+**A**: はい。各バグは本番環境の金融システムで実際に見つかった問題に基づいています：
+- バリデーションにおけるオフバイワンエラー
+- 反転した比較演算子
+- ビジネスルールチェックの欠落
+- 手数料の計算エラー
+- コメントアウトされたセキュリティチェック
 
-### Q: How long does evolution take?
+### Q: 進化にはどのくらい時間がかかりますか？
 
-**A**: For this module:
-- Manual test writing: 20-25 hours
-- Shinka Quality: 2-3 hours (automated)
-- Time savings: 90%
+**A**: このモジュールの場合：
+- 手動テスト作成: 20-25時間
+- Shinka Quality: 2-3時間（自動）
+- 時間節約: 90%
 
-### Q: Can I use this in production?
+### Q: 本番環境で使用できますか？
 
-**A**: This example is for demonstration. For production:
-1. Review and validate generated tests
-2. Add domain-specific assertions
-3. Integrate with your testing framework
-4. Set up continuous evolution
+**A**: この例はデモンストレーション用です。本番環境では：
+1. 生成されたテストをレビューして検証
+2. ドメイン固有のアサーションを追加
+3. テストフレームワークと統合
+4. 継続的な進化を設定
 
-### Q: What if my module is more complex?
+### Q: モジュールがもっと複雑な場合は？
 
-**A**: Shinka Quality scales well:
-- 100+ statement modules: Similar results
-- 1000+ statement modules: May need more generations
-- Multiple modules: Parallel evolution
+**A**: Shinka Qualityは良好にスケールします：
+- 100以上のステートメントモジュール: 同様の結果
+- 1000以上のステートメントモジュール: より多くの世代が必要な場合あり
+- 複数モジュール: 並列進化
 
-## Support
+## サポート
 
-For questions or issues with this example:
-- Open an issue on GitHub
+この例に関する質問や問題については：
+- GitHubでissueを開く
 - Email: shinka-qa@example.com
-- Documentation: https://github.com/your-org/shinka-qa
+- ドキュメント: https://github.com/your-org/shinka-qa
 
 ---
 
-**Generated by**: Shinka Quality v1.0
-**License**: MIT
-**Status**: Production-ready demonstration
+**生成ツール**: Shinka Quality v1.0
+**ライセンス**: MIT
+**ステータス**: 本番環境対応デモンストレーション
