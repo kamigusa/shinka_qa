@@ -133,18 +133,6 @@ Part 0 → Part 1 → Part 2 → Part 3 → Part 4
 
 ---
 
-## 📚 追加リソース
-
-### ドキュメント
-- [公式ドキュメント](https://docs.shinka-evolve.com)
-- [API リファレンス](https://docs.shinka-evolve.com/api)
-- [サンプルコード](https://github.com/yourusername/shinka-evolve/examples)
-
-### コミュニティ
-- [GitHub Discussions](https://github.com/yourusername/shinka-evolve/discussions)
-- [Discord](https://discord.gg/shinka-evolve)
-
----
 
 ## 🎯 次のステップ
 
