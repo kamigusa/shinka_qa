@@ -316,7 +316,7 @@ def benchmark(config):
     runner = TestRunner()
     result = runner.run_with_coverage(
         initial_test,
-        target_module.stem,
+        target_module,
         target_module.parent
     )
 

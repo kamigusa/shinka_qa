@@ -91,7 +91,7 @@ class QualityEvaluator:
                 [
                     'pytest',
                     str(test_file),
-                    f'--cov={self.target_module.stem}',
+                    f'--cov={self.target_module.name}',
                     '--cov-report=term-missing',
                     '--tb=short',
                     '-v'
@@ -107,7 +107,7 @@ class QualityEvaluator:
 
             # "TOTAL" 行からカバレッジパーセンテージを抽出
             for line in output.split('\n'):
-                if 'TOTAL' in line or self.target_module.stem in line:
+                if 'TOTAL' in line or self.target_module.stem in line or self.target_module.name in line:
                     parts = line.split()
                     for part in parts:
                         if '%' in part:

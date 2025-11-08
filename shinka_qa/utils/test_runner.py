@@ -65,7 +65,7 @@ class TestRunner:
     def run_with_coverage(
         self,
         test_file: Path,
-        module_name: str,
+        module_path: Path,
         target_dir: Path = None
     ) -> Dict[str, any]:
         """
@@ -73,7 +73,7 @@ class TestRunner:
 
         Args:
             test_file: テストファイルのパス
-            module_name: カバレッジ対象モジュール名
+            module_path: カバレッジ対象モジュールのパス
             target_dir: 実行ディレクトリ
 
         Returns:
@@ -87,7 +87,7 @@ class TestRunner:
                 [
                     'pytest',
                     str(test_file),
-                    f'--cov={module_name}',
+                    f'--cov={module_path.name}',
                     '--cov-report=term-missing',
                     '-v'
                 ],
