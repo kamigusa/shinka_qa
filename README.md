@@ -64,12 +64,38 @@ def test_divide_zero():
 
 ### ステップ1: インストール
 
+#### 方法A: pyproject.tomlからインストール（推奨）
+
 ```bash
 # リポジトリをクローン
 git clone https://github.com/yourusername/shinka-qa.git
 cd shinka-qa
 
 # インストール（依存関係も自動）
+pip install -e .
+```
+
+#### 方法B: 仮想環境 + requirements.txtでインストール
+
+```bash
+# リポジトリをクローン
+git clone https://github.com/yourusername/shinka-qa.git
+cd shinka-qa
+
+# 仮想環境を作成・有効化
+python -m venv venv
+
+# Windows
+venv\Scripts\activate
+
+# macOS/Linux
+source venv/bin/activate
+
+# 依存関係をインストール
+pip install --upgrade pip
+pip install -r requirements.txt
+
+# shinka-qaをインストール
 pip install -e .
 ```
 
@@ -483,12 +509,44 @@ def divide(a, b):
 
 ### 開発環境のセットアップ
 
+#### 方法A: pyproject.tomlから開発環境を構築（推奨）
+
 ```bash
 # リポジトリをクローン(SSH)
 git clone git@github.com:kamigusa/shinka_qa.git
 cd shinka-qa
 
 # 開発依存関係をインストール
+pip install -e ".[dev]"
+
+# Pre-commit hooksをセットアップ
+pre-commit install
+
+# テストを実行
+pytest tests/ --cov=shinka_quality
+```
+
+#### 方法B: 仮想環境を使った開発環境構築
+
+```bash
+# リポジトリをクローン(SSH)
+git clone git@github.com:kamigusa/shinka_qa.git
+cd shinka-qa
+
+# 仮想環境を作成・有効化
+python -m venv venv
+
+# Windows
+venv\Scripts\activate
+
+# macOS/Linux
+source venv/bin/activate
+
+# 依存関係をインストール
+pip install --upgrade pip
+pip install -r requirements.txt
+
+# shinka-qaをインストール（開発モード）
 pip install -e ".[dev]"
 
 # Pre-commit hooksをセットアップ
